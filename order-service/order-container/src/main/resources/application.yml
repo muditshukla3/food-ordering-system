@@ -21,18 +21,18 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres?currentSchema=order&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
-    username: postgres
-    password: admin
+    username: pguser
+    password: pguser
     driver-class-name: org.postgresql.Driver
     schema: classpath:init-schema.sql
     initialization-node: always
 
 kafka-config:
-  bootstrap-servers: localhost:19092, localhost:29092, localhost:39092
+  bootstrap-servers: localhost:19092, localhost:29092 #, localhost:39092
   schema-registry-url-key: schema.registry.url
   schema-registry-url: http://localhost:8081
-  num-of-partitions: 3
-  replication-factor: 3
+  num-of-partitions: 2
+  replication-factor: 2
 
 kafka-producer-config:
   key-serializer-class: org.apache.kafka.common.serialization.StringSerializer
@@ -56,11 +56,11 @@ kafka-consumer-config:
   specific-avro-reader: true
   batch-listener: true
   auto-startup: true
-  concurrency-level: 3
+  concurrency-level: 2
   session-timeout-ms: 10000
   heartbeat-interval-ms: 3000
   max-poll-interval-ms: 300000
   max-poll-records: 500
   max-partition-fetch-bytes-default: 1048576
-  max-partition-fetch-bytes-boot-factor: 1
+  max-partition-fetch-bytes-boost-factor: 1
   poll-timeout-ms: 150

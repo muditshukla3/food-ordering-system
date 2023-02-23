@@ -23,7 +23,7 @@ CREATE TABLE "order".orders
 
 DROP TABLE IF EXISTS "order".order_items CASCADE;
 
-CREATE TABLE "order".order_items
+CREATE TABLE "order".orders_items
 (
   id bigint NOT NULL,
   order_id uuid NOT NULL,
@@ -31,10 +31,10 @@ CREATE TABLE "order".order_items
   price numeric(10,2) NOT NULL,
   quantity integer NOT NULL,
   sub_total numeric(10,2) NOT NULL,
-  CONSTRAINT order_items.pkey PRIMARY KEY (id, order_id)
+  CONSTRAINT order_items_pkey PRIMARY KEY (id, order_id)
 );
 
-ALTER TABLE "order".order_items
+ALTER TABLE "order".orders_items
    ADD CONSTRAINT "FK_ORDER_ID" FOREIGN KEY (order_id)
    REFERENCES "order".orders (id) MATCH SIMPLE
    ON UPDATE NO ACTION
@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS "order".order_address CASCADE;
 
 CREATE TABLE "order".order_address
 (
-  id bigint NOT NULL,
+  id uuid NOT NULL,
   order_id uuid UNIQUE NOT NULL,
   street character varying COLLATE pg_catalog."default" NOT NULL,
   postal_code character varying COLLATE pg_catalog."default" NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE "order".order_address
 
 ALTER TABLE "order".order_address
   ADD CONSTRAINT "FK_ORDER_ID" FOREIGN KEY(order_id)
-  REFERENCES "order".order (id) MATCH SIMPLE
+  REFERENCES "order".orders (id) MATCH SIMPLE
   ON UPDATE NO ACTION
   ON DELETE CASCADE
   NOT VALID;
