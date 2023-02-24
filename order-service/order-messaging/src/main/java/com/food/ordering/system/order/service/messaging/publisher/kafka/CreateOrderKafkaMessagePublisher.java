@@ -18,12 +18,12 @@ public class CreateOrderKafkaMessagePublisher implements OrderCreatedPaymentRequ
 
     private final KafkaProducer<String, PaymentRequestAvroModel> kafkaProducer;
 
-    private final OrderKafkaMessageHelper orderKafkaMessageHelper;
+    private final KafkaMessageHelper orderKafkaMessageHelper;
 
     public CreateOrderKafkaMessagePublisher(OrderMessagingDataMapper orderMessagingDataMapper,
                                             OrderServiceConfigData orderServiceConfigData,
                                             KafkaProducer<String, PaymentRequestAvroModel> kafkaProducer,
-                                            OrderKafkaMessageHelper orderKafkaMessageHelper) {
+                                            KafkaMessageHelper orderKafkaMessageHelper) {
         this.orderMessagingDataMapper = orderMessagingDataMapper;
         this.orderServiceConfigData = orderServiceConfigData;
         this.kafkaProducer = kafkaProducer;
