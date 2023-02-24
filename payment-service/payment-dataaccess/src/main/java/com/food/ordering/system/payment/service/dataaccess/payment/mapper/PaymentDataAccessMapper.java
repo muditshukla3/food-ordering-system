@@ -17,7 +17,7 @@ public class PaymentDataAccessMapper {
                 .customerId(payment.getCustomerId().getValue())
                 .orderId(payment.getOrderId().getValue())
                 .price(payment.getPrice().getAmount())
-                .paymentStatus(payment.getPaymentStatus())
+                .status(payment.getPaymentStatus())
                 .createdAt(payment.getCreatedAt())
                 .build();
     }
