@@ -25,20 +25,20 @@ AS
     FROM customer.customers
 WITH DATA;
 
---refresh materialized VIEW customer.order_customer_m_view;
---
---CREATE OR replace function customer.refresh_order_customer_m_view()
---returns trigger
---AS
---BEGIN
---    refresh materialized VIEW customer.order_customer_m_view;
---    return null;
---END;
---   LANGUAGE plpqsql;
---
---DROP TRIGGER IF EXISTS refresh_order_customer_m_view ON customer.customers;
---
---CREATE trigger refresh_order_customer_m_view
---after insert or update or delete or truncate
---ON customer.customers FOR each statement
---EXECUTE PROCEDURE customer.refresh_order_customer_m_view();
+refresh materialized VIEW customer.order_customer_m_view;
+
+CREATE OR replace function customer.refresh_order_customer_m_view()
+returns trigger
+AS '
+BEGIN
+    refresh materialized VIEW customer.order_customer_m_view;
+    return null;
+END;
+  ' LANGUAGE plpqsql;
+
+DROP TRIGGER IF EXISTS refresh_order_customer_m_view ON customer.customers;
+
+CREATE trigger refresh_order_customer_m_view
+after insert or update or delete or truncate
+ON customer.customers FOR each statement
+EXECUTE PROCEDURE customer.refresh_order_customer_m_view();
