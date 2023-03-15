@@ -60,7 +60,9 @@ public class OrderDataAccessMapper {
                         .product(new Product(new ProductId(orderItemEntity.getProductId())))
                         .price(new Money(orderItemEntity.getPrice()))
                         .quantity(orderItemEntity.getQuantity())
-                        .subTotal(new Money(orderItemEntity.getSubTotal())).build()).collect(Collectors.toList());
+                        .subTotal(new Money(orderItemEntity.getSubTotal()))
+                        .build())
+                .collect(Collectors.toList());
     }
 
     private StreetAddress addressEntityToDeliveryAddress(OrderAddressEntity address) {
