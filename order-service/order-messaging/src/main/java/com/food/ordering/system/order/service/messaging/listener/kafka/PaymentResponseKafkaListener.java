@@ -42,12 +42,12 @@ public class PaymentResponseKafkaListener implements KafkaConsumer<PaymentRespon
                 offsets.toString());
 
         messages.forEach(paymentResponseAvroModel -> {
-            if(PaymentStatus.COMPLETED == paymentResponseAvroModel.getPaymentOrderStatus()){
+            if(PaymentStatus.COMPLETED == paymentResponseAvroModel.getPaymentStatus()){
                 log.info("Processing successful payment for order id: {}", paymentResponseAvroModel.getOrderId());
                 paymentResponseMessageListener.paymentCompleted(orderMessagingDataMapper
                                                     .paymentResponseAvroModelToPaymentResponse(paymentResponseAvroModel));
-            }else if (PaymentStatus.CANCELLED == paymentResponseAvroModel.getPaymentOrderStatus() ||
-                    PaymentStatus.FAILED == paymentResponseAvroModel.getPaymentOrderStatus()){
+            }else if (PaymentStatus.CANCELLED == paymentResponseAvroModel.getPaymentStatus() ||
+                    PaymentStatus.FAILED == paymentResponseAvroModel.getPaymentStatus()){
                 log.info("Processing unsuccessful payment for order id: {}", paymentResponseAvroModel.getOrderId());
                 paymentResponseMessageListener.paymentCancelled(orderMessagingDataMapper.
                         paymentResponseAvroModelToPaymentResponse(paymentResponseAvroModel));

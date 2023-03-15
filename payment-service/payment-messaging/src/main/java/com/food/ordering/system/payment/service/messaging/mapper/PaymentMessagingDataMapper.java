@@ -26,7 +26,8 @@ public class PaymentMessagingDataMapper {
                 .setOrderId(paymentCompletedEvent.getPayment().getOrderId().getValue().toString())
                 .setPrice(paymentCompletedEvent.getPayment().getPrice().getAmount())
                 .setCreatedAt(paymentCompletedEvent.getCreatedAt().toInstant())
-                .setPaymentOrderStatus(PaymentStatus.valueOf(paymentCompletedEvent.getPayment().getPaymentStatus().name()))
+                .setPaymentStatus(PaymentStatus.
+                        valueOf(paymentCompletedEvent.getPayment().getPaymentStatus().name()))
                 .setFailureMessages(paymentCompletedEvent.getFailureMessages())
                 .build();
     }
@@ -41,7 +42,8 @@ public class PaymentMessagingDataMapper {
                 .setOrderId(paymentCancelledEvent.getPayment().getOrderId().getValue().toString())
                 .setPrice(paymentCancelledEvent.getPayment().getPrice().getAmount())
                 .setCreatedAt(paymentCancelledEvent.getCreatedAt().toInstant())
-                .setPaymentOrderStatus(PaymentStatus.valueOf(paymentCancelledEvent.getPayment().getPaymentStatus().name()))
+                .setPaymentStatus(PaymentStatus.
+                        valueOf(paymentCancelledEvent.getPayment().getPaymentStatus().name()))
                 .setFailureMessages(paymentCancelledEvent.getFailureMessages())
                 .build();
     }
@@ -56,7 +58,8 @@ public class PaymentMessagingDataMapper {
                 .setOrderId(paymentFailedEvent.getPayment().getOrderId().getValue().toString())
                 .setPrice(paymentFailedEvent.getPayment().getPrice().getAmount())
                 .setCreatedAt(paymentFailedEvent.getCreatedAt().toInstant())
-                .setPaymentOrderStatus(PaymentStatus.valueOf(paymentFailedEvent.getPayment().getPaymentStatus().name()))
+                .setPaymentStatus(PaymentStatus.
+                        valueOf(paymentFailedEvent.getPayment().getPaymentStatus().name()))
                 .setFailureMessages(paymentFailedEvent.getFailureMessages())
                 .build();
     }
