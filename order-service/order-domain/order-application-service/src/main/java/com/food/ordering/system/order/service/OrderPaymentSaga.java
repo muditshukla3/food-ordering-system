@@ -1,21 +1,14 @@
 package com.food.ordering.system.order.service;
 
 import com.food.ordering.system.domain.event.EmptyEvent;
-import com.food.ordering.system.domain.valueobject.OrderId;
 import com.food.ordering.system.order.domain.OrderDomainService;
 import com.food.ordering.system.order.domain.entity.Order;
 import com.food.ordering.system.order.domain.event.OrderPaidEvent;
-import com.food.ordering.system.order.domain.exception.OrderNotFoundException;
 import com.food.ordering.system.order.service.dto.message.PaymentResponse;
-import com.food.ordering.system.order.service.ports.output.message.publisher.restaurant.OrderPaidResturantRequestMessagePublisher;
-import com.food.ordering.system.order.service.ports.output.repository.OrderRepository;
 import com.food.ordering.system.saga.SagaStep;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
-import java.util.UUID;
 
 @Slf4j
 @Component

@@ -8,7 +8,6 @@ import com.food.ordering.system.order.domain.event.OrderCreatedEvent;
 import com.food.ordering.system.order.domain.exception.OrderDomainException;
 import com.food.ordering.system.order.service.dto.create.CreateOrderCommand;
 import com.food.ordering.system.order.service.mapper.OrderDataMapper;
-import com.food.ordering.system.order.service.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 import com.food.ordering.system.order.service.ports.output.repository.CustomerRepository;
 import com.food.ordering.system.order.service.ports.output.repository.OrderRepository;
 import com.food.ordering.system.order.service.ports.output.repository.RestaurantRepository;
