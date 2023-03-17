@@ -1,5 +1,6 @@
-package com.food.ordering.system.order.service.outbox.scheduler.payment;
+package com.food.ordering.system.order.service.outbox.scheduler.approval;
 
+import com.food.ordering.system.order.service.outbox.model.approval.OrderApprovalOutboxMessage;
 import com.food.ordering.system.order.service.outbox.model.payment.OrderPaymentOutboxMessage;
 import com.food.ordering.system.outbox.OutboxScheduler;
 import com.food.ordering.system.outbox.OutboxStatus;
@@ -14,19 +15,19 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class PaymentOutboxCleanerScheduler implements OutboxScheduler {
+public class RestaurantApprovalOutboxCleanerScheduler implements OutboxScheduler {
 
-    private final PaymentOutboxHelper paymentOutboxHelper;
+    private final ApprovalOutboxHelper approvalOutboxHelper;
 
-    public PaymentOutboxCleanerScheduler(PaymentOutboxHelper paymentOutboxHelper) {
-        this.paymentOutboxHelper = paymentOutboxHelper;
+    public RestaurantApprovalOutboxCleanerScheduler(ApprovalOutboxHelper approvalOutboxHelper) {
+        this.approvalOutboxHelper = approvalOutboxHelper;
     }
 
     @Override
     @Scheduled(cron = "@midnight")
     public void processOutboxMessage() {
-        Optional<List<OrderPaymentOutboxMessage>> outboxMessageResponse =
-                paymentOutboxHelper.getPaymentOutboxMessageByOutboxStatusAndSagaStatus(
+        Optional<List<OrderApprovalOutboxMessage>> outboxMessageResponse =
+                approvalOutboxHelper.getApprovalOutboxMessageByOutboxStatusAndSagaStatus(
                         OutboxStatus.COMPLETED,
                         SagaStatus.SUCCEEDED,
                         SagaStatus.FAILED,
@@ -34,18 +35,18 @@ public class PaymentOutboxCleanerScheduler implements OutboxScheduler {
                 );
 
         if(outboxMessageResponse.isPresent()){
-            List<OrderPaymentOutboxMessage> outboxMessages = outboxMessageResponse.get();
+            List<OrderApprovalOutboxMessage> outboxMessages = outboxMessageResponse.get();
             log.info("Received {} OrderPaymentOutboxMessage for clean-up. The payloads: {}",
                     outboxMessages.size(),
-                    outboxMessages.stream().map(OrderPaymentOutboxMessage::getPayload)
+                    outboxMessages.stream().map(OrderApprovalOutboxMessage::getPayload)
                             .collect(Collectors.joining("\n")));
-            paymentOutboxHelper.deletePaymentOutboxMessageByOutboxStatusAndSagaStatus(
+            approvalOutboxHelper.deleteApprovalOutboxMessageByOutboxStatusAndSagaStatus(
                     OutboxStatus.COMPLETED,
                     SagaStatus.SUCCEEDED,
                     SagaStatus.FAILED,
                     SagaStatus.COMPENSATED);
 
-            log.info("{} OrderPaymentOutboxMessage deleted!", outboxMessages.size());
+            log.info("{} OrderApprovalOutboxMessage deleted!", outboxMessages.size());
         }
     }
 }
