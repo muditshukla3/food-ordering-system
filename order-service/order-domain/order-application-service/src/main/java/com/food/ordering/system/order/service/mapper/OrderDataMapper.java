@@ -1,18 +1,17 @@
 package com.food.ordering.system.order.service.mapper;
 
-import com.food.ordering.system.domain.valueobject.CustomerId;
-import com.food.ordering.system.domain.valueobject.Money;
-import com.food.ordering.system.domain.valueobject.ProductId;
-import com.food.ordering.system.domain.valueobject.RestaurantId;
+import com.food.ordering.system.domain.valueobject.*;
 import com.food.ordering.system.order.domain.entity.Order;
 import com.food.ordering.system.order.domain.entity.OrderItem;
 import com.food.ordering.system.order.domain.entity.Product;
 import com.food.ordering.system.order.domain.entity.Restaurant;
+import com.food.ordering.system.order.domain.event.OrderCreatedEvent;
 import com.food.ordering.system.order.domain.valueobject.StreetAddress;
 import com.food.ordering.system.order.service.dto.create.CreateOrderCommand;
 import com.food.ordering.system.order.service.dto.create.CreateOrderResponse;
 import com.food.ordering.system.order.service.dto.create.OrderAddress;
 import com.food.ordering.system.order.service.dto.track.TrackOrderResponse;
+import com.food.ordering.system.order.service.outbox.model.payment.OrderPaymentEventPayload;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -70,5 +69,15 @@ public class OrderDataMapper {
 
     private StreetAddress orderAddressToStreetAddress(OrderAddress address) {
         return new StreetAddress(UUID.randomUUID(), address.getStreet(), address.getPostalCode(), address.getCity());
+    }
+
+    public OrderPaymentEventPayload orderCreatedEventToOrderPaymentEventPayload(OrderCreatedEvent orderCreatedEvent){
+        return OrderPaymentEventPayload.builder()
+                .customerId(orderCreatedEvent.getOrder().getCustomerId().getValue().toString())
+                .orderId(orderCreatedEvent.getOrder().getId().getValue().toString())
+                .price(orderCreatedEvent.getOrder().getPrice().getAmount())
+                .createdAt(orderCreatedEvent.getCreatedAt())
+                .paymentOrderStatus(PaymentOrderStatus.PENDING.name())
+                .build();
     }
 }
