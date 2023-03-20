@@ -20,8 +20,6 @@ public class RestaurantApprovalRequestMessageListenerImpl
 
     @Override
     public void approveOrder(RestaurantApprovalRequest restaurantApprovalRequest) {
-        OrderApprovalEvent orderApprovalEvent = restaurantApprovalRequestHelper.
-                                                                persistOrderApproval(restaurantApprovalRequest);
-        orderApprovalEvent.fire();
+        restaurantApprovalRequestHelper.persistOrderApproval(restaurantApprovalRequest);
     }
 }
