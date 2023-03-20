@@ -7,6 +7,7 @@ import com.food.ordering.system.order.service.outbox.model.approval.OrderApprova
 import com.food.ordering.system.order.service.ports.output.repository.ApprovalOutboxRepository;
 import com.food.ordering.system.outbox.OutboxStatus;
 import com.food.ordering.system.saga.SagaStatus;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Component
 public class ApprovalOutboxRepositoryImpl implements ApprovalOutboxRepository {
 
     private final ApprovalOutboxJpaRepository approvalOutboxJpaRepository;
