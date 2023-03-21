@@ -16,7 +16,7 @@ CREATE TABLE restaurant.restaurants
 
 DROP TYPE IF EXISTS approval_status;
 
-CREATE TABLE approval_status AS ENUM('APPROVED', 'REJECTED');
+CREATE TYPE approval_status AS ENUM('APPROVED', 'REJECTED');
 
 DROP TABLE IF EXISTS restaurant.order_approval CASCADE;
 
@@ -49,13 +49,6 @@ CREATE TABLE restaurant.restaurant_products
   product_id uuid NOT NULL,
   CONSTRAINT restaurant_products_pkey PRIMARY KEY(id)
 );
-
-ALTER TABLE restaurant.restaurant_products
-    ADD CONSTRAINT "FK_PRODUCT_ID" FOREIGN KEY (product_id)
-    REFERENCES restaurant.products (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE RESTRICT
-    NOT VALID;
 
 ALTER TABLE restaurant.restaurant_products
     ADD CONSTRAINT "FK_PRODUCT_ID" FOREIGN KEY (product_id)
@@ -115,7 +108,7 @@ refresh materialized VIEW restaurant.order_restaurant_m_view;
 DROP function IF EXISTS restaurant.refresh_order_restaurant_m_view;
 
 CREATE OR REPLACE function restaurant.refresh_order_restaurant_m_view()
-return trigger
+returns trigger
 AS '
 BEGIN
    refresh materialized VIEW restaurant.order_restaurant_m_view;
