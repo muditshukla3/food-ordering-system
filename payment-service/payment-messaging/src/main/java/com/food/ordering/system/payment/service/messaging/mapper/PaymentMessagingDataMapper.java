@@ -33,6 +33,7 @@ public class PaymentMessagingDataMapper {
         return PaymentResponseAvroModel.newBuilder()
                 .setId(UUID.randomUUID().toString())
                 .setSagaId(sagaId)
+                .setPaymentId(orderEventPayload.getPaymentId())
                 .setCustomerId(orderEventPayload.getCustomerId())
                 .setOrderId(orderEventPayload.getOrderId())
                 .setPrice(orderEventPayload.getPrice())
