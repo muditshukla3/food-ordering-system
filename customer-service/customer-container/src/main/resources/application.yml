@@ -17,7 +17,6 @@ spring:
     password: pguser
     driver-class-name: org.postgresql.Driver
     schema: classpath:init-schema.sql
-    data: classpath:init-data.sql
     initialization-node: always
 
 kafka-config:
