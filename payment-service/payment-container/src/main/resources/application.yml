@@ -26,7 +26,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     schema: classpath:init-schema.sql
     data: classpath:init-data.sql
-    initialization-node: always
+    initialization-mode: always
 
 kafka-config:
   bootstrap-servers: localhost:19092, localhost:29092 , localhost:39092
