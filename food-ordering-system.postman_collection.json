@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "50153f3b-8647-4448-879e-78be7322c93c",
+		"name": "food-ordering-system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "order-service",
+			"item": [
+				{
+					"name": "create-order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerId\": \"f003e21b-9dc1-41ef-89bb-0895a6043c2a\",\n  \"restaurantId\": \"03f3a46a-4738-4081-85f5-b060892663d4\",\n  \"address\": {\n    \"street\": \"street_1\",\n    \"postalCode\": \"1000AB\",\n    \"city\": \"Amsterdam\"\n  },\n  \"price\": 25.00,\n  \"items\": [\n    {\n      \"productId\": \"0bdaba0e-433f-4e5b-81e3-7665c5bfc6dd\",\n      \"quantity\": 1,\n      \"price\": 25.00,\n      \"subTotal\": 25.00\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8181/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-order-status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8181/orders/b438ae46-b7bf-42ef-8702-84f31636ce47",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8181",
+							"path": [
+								"orders",
+								"b438ae46-b7bf-42ef-8702-84f31636ce47"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "customer-service",
+			"item": [
+				{
+					"name": "create-customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\":\"32800f12-47db-4bcf-b9ef-e726a7b111d0\",\n    \"username\":\"user2\",\n    \"firstName\":\"Second\",\n    \"lastName\":\"User\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8184/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8184",
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
